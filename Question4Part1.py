@@ -6,24 +6,25 @@
 import pandas
 import numpy
 import re
-import pprint
 
 
 # In[2]:
 
+#import data
 df = pandas.read_csv('./Data/movies_awards.csv')
 
 
 # In[3]:
 
+#drop unimportant columns
 df.drop(df.columns[0:5], axis = 1, inplace = True)
 df.drop(df.columns[1:10], axis = 1, inplace = True)
 df.drop(df.columns[2:7], axis = 1, inplace = True)
-df.head()
 
 
 # In[4]:
 
+# add in blank columns for the awards
 df['Awards_won'] = 0
 df['Awards_nominated'] = 0
 df['Prime_Awards_won'] = 0
@@ -38,6 +39,7 @@ df['BAFTA_Awards_nominated'] = 0
 
 # In[5]:
 
+#this takes in a string and extracts the set of awards indicated by that string
 def extractAwards(awardString):
     #split string into substrings
     awardString = awardString.replace('. ',',')
@@ -50,11 +52,12 @@ def extractAwards(awardString):
 
 # In[6]:
 
+#this takes in a substring which contains an award type and count, and extracts that information
 def intrepretAward(awardSubString):
     #split string into words
     words = awardSubString.split(' ')
-    winType = 'win(s)'
-    number = 0
+    winType = 'win(s)' #default = win, unless otherwise found
+    number = 0 #number of awards = 0 until found otherwise
     
     #make strings lowercase to limit iterations
     #also deletes trailing period and finds the number of awards
@@ -87,34 +90,43 @@ def intrepretAward(awardSubString):
 
 # In[7]:
 
+#turning off warning as the code is working as intended
 pandas.options.mode.chained_assignment = None
+
 for row in range(len(df['Title'])):
+    #iterates over each row in the data frame
     
+    #check if row contains a valid string to parse, then send it to be parsed
     if type(df['Awards'][row]) == str:
         awards = extractAwards(df['Awards'][row])
 
         for a in range(len(awards)):
-            column= ''
+            column= '' #start with a null column
             if awards[a][-1]:
                 if awards[a][0] != 'unknown':
-                    column = awards[a][0] + '_'
+                    #add in the award name to the column to find the correct column
+                    column = awards[a][0] + '_' 
                 column = column + 'Awards'
 
+                # pick correct column based on if award was won or just nominated
                 if awards[a][1] == 'win(s)':
                     column = column + '_won'
                 else:
                     column = column + '_nominated'
 
+                # put the number of awards into the correct column
                 df[column][row] = awards[a][-1]
         
 
 
 # In[8]:
 
+#print data to csv
 df.to_csv('./Output/Question4Part1Output.csv')
 
 
 # In[9]:
 
+#print first few rows of data
 print(df.head().to_string())
 
