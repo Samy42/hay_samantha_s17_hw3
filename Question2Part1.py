@@ -39,5 +39,5 @@ df.to_csv('./Output/Question2Part1Output.csv')
 # In[6]:
 
 #print the first few rows of the output for verification
-df.head()
+print(df.head().to_string())
 

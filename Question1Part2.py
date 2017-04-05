@@ -54,8 +54,8 @@ data.drop('FIVE_VEHICLES_INVOLVED',axis=1, inplace = True)
 data.to_csv('./Output/Question1Part2Output.csv')
 
 
-# In[10]:
+# In[9]:
 
 #print the first few rows to verify output
-data.head()
+print(data.head().to_string())
 

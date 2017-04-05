@@ -83,5 +83,5 @@ data.to_csv('./Output/Question1Part1Output.csv')
 # In[12]:
 
 #print the first 5 rows of the output
-data.head()
+print(data.head().to_string())
 

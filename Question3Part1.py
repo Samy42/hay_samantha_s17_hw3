@@ -61,5 +61,5 @@ df.to_csv('./Output/Question3Part1Output.csv')
 # In[9]:
 
 #print top 5 rows
-df.head()
+print(df.head().to_string())
 

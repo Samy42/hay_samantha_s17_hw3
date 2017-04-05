@@ -97,5 +97,5 @@ data.to_csv('./Output/Question2Part2Output.csv')
 # In[14]:
 
 #print top few rows of data
-data.head()
+print(data.head().to_string())
 
