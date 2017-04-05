@@ -82,7 +82,7 @@ def intrepretAward(awardSubString):
     
     
     #wins or nominations
-    if words.count('nomination') or words.count('nominations') or words.count('nominated'):
+    if words.count('nomination') or words.count('nomination.') or words.count('nominations.') or words.count('nominated.') or words.count('nominations') or words.count('nominated'):
         winType = 'nomination(s)'
             
     return [awardType,winType,number]
@@ -121,11 +121,19 @@ for row in range(len(df['Title'])):
 
 # In[8]:
 
+# add specific awards won or nomated to the total awards won or nominated
+df['Awards_won'] = df['Awards_won'] + df['Prime_Awards_won'] + df['Oscars_Awards_won'] + df['Golden_Globe_Awards_won'] + df['BAFTA_Awards_won']
+
+df['Awards_nominated'] = df['Awards_nominated'] + df['Prime_Awards_nominated'] + df['Oscars_Awards_nominated'] + df['Golden_Globe_Awards_nominated'] + df['BAFTA_Awards_nominated']
+
+
+# In[9]:
+
 #print data to csv
 df.to_csv('./Output/Question4Part1Output.csv')
 
 
-# In[9]:
+# In[10]:
 
 #print first few rows of data
 print(df.head().to_string())
